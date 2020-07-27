@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'
 import classNames from 'classnames';
+const typeNames = ['тонкое','традиционное'];
+const sizeNames = [26, 30, 40];
 
-
-function Content ({imageUrl, name, sizes, price, types}) {
+function Index ({imageUrl, name, sizes, price, types}) {
 
     const [activeSize, setActiveSize] = useState(sizes[0]);
     const [activeType, setActiveType] = useState(types[0]);
-    const typeNames = ['тонкое','традиционное'];
-    const sizeNames = [26, 30, 40];
+
 
 
     const onSelectSize = index =>{
@@ -85,12 +85,21 @@ function Content ({imageUrl, name, sizes, price, types}) {
 
 }
 
-Content.propTypes = {
+Index.propTypes = {
     name:PropTypes.string.isRequired,
     price:PropTypes.number.isRequired,
     sizes:PropTypes.arrayOf(PropTypes.number).isRequired,
     imageUrl:PropTypes.string.isRequired,
-    types:PropTypes.arrayOf(PropTypes.number).isRequired
+    types:PropTypes.arrayOf(PropTypes.number).isRequired,
+    isLoading:PropTypes.bool
 };
 
-export default Content;
+Index.defaultProps = {
+    name:'---',
+    price:0,
+    type:[],
+    size:[],
+    isLoading:false
+};
+
+export default Index;
