@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { Categories,SortPopup,Content, PlaceHolderBlock} from '../components';
-import {setCategory} from "../redux/actions/filters";
+import {setCategory, setSortBy} from "../redux/actions/filters";
 import {fetchPizzas} from "../redux/actions/pizzas";
 
 const categories = ["Все", 'Мясные', 'Вегетарианская','Гриль','Острые','Закрытые'];
-const sorrtBy = [{name:'Популярности',type:'popular'}, {name:"Цене",type:'price'}, {name:"Алфавиту", type:'alphabet'}];
+const sortArray = [{name:'Популярности',type:'popular'}, {name:"Цене",type:'price'}, {name:"Алфавиту", type:'alphabet'}];
 
 
 function Home() {
@@ -15,22 +15,24 @@ function Home() {
     const {category, sortBy} = useSelector(({filter}) => filter);
 
     useEffect(()=>{
-        dispatch(fetchPizzas());
-    },[category, dispatch]);
+        dispatch(fetchPizzas(category, sortBy));
+    },[category, sortBy, dispatch]);
 
 
+    console.log(category);
     const onSelectCategory = useCallback((index) =>{
         dispatch(setCategory(index));
     },[dispatch]);
 
-    const onSelectFilter = useCallback((index) =>{
-        dispatch(setCategory(index));
+    const onSelectFilter = useCallback((name) =>{
+        dispatch(setSortBy(name));
     },[dispatch]);
+
     return (
         <div className="container">
             <div className="content__top">
                 <Categories onClick={onSelectCategory} items={categories} activeCat={category}/>
-                <SortPopup onClick={onSelectFilter} items={sorrtBy} activeSort={sortBy}/>
+                <SortPopup onClick={onSelectFilter} items={sortArray} activeSort={sortBy}/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">

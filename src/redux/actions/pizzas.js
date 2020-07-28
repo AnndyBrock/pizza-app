@@ -5,9 +5,13 @@ export const setLoaded = (payload) => ({
     payload
 });
 
-export const fetchPizzas =  () => (dispatch) => {
-    dispatch(setLoaded(false))
-    axios.get(`http://localhost:3001/pizzas`).then(({data})=>{
+export const fetchPizzas =  (category, sortBy ) => (dispatch) => {
+    dispatch(setLoaded(false));
+
+    const categoryVal = category > 0 ? `category=${category}` : '';
+
+    axios.get(`http://localhost:3001/pizzas?${categoryVal}&_sort=${sortBy}&_order=desc`)
+        .then(({data})=>{
         dispatch(setPizzas(data));
     });
 
