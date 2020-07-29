@@ -5,7 +5,7 @@ import {setCategory, setSortBy} from "../redux/actions/filters";
 import {fetchPizzas} from "../redux/actions/pizzas";
 
 const categories = ["Все", 'Мясные', 'Вегетарианская','Гриль','Острые','Закрытые'];
-const sortArray = [{name:'Популярности',type:'popular'}, {name:"Цене",type:'price'}, {name:"Алфавиту", type:'title'}];
+const sortArray = [{name:'Популярности',type:'popular', order:'desc'}, {name:"Цене",type:'price',order:'desc'}, {name:"Алфавиту", type:'name',order:'asc'}];
 
 
 function Home() {
